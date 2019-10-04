@@ -17,7 +17,7 @@ The scope of the course is to give you:
 
 
 
-#### Lectures
+### Lectures
 
 There will be 77 hours of lectures, on Monday and Friday, in "Aula D" in the basement of ..., Miramare.
 The lectures will be structured as follows:
@@ -36,13 +36,13 @@ Nov, 1st; Dec, 20th.
 After the Christmas break the lectures will re-start on Friday, 10th Jan and will end on Friday, 17th Jan.
 
 
-#### Exam
+### Exam
 
 The final mark will be made up by the weighted sum of the marks obtained in home assignments that will be given along the course, and of the mark obtained in a final written test.
 The marks range from 0 to 30, 18 being the minimum to pass (all the marks must be at minimum 18).
 
 
-ASSIGNMETS:
+#### ASSIGNEMETS:
 3 written exercises will be assigned, with a strict due date. Failing to submit the solutions, unless for serious reasons of non-academic nature, will deny the access to the final exam.
 
 70% if the final mark will be calculated from the exercises' marks, as detailed here after.
@@ -53,7 +53,7 @@ The assignments's schedule will be the following:
 - Dec, 16th --> due date: Jan, 10th    [ 20% of the final mark ]
 
 
-FINAL TEST:
+#### FINAL TEST:
 The final written test will consist in about 15 questions covering all the topics mentioned during the lectures. The corresponding mark will weight 30% of the final mark.
 
 
