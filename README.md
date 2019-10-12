@@ -19,7 +19,7 @@ The scope of the course is to give you:
 
 ### Lectures
 
-There will be 77 hours of lectures, on Monday and Friday, in "Aula D" in the basement of ..., Miramare.
+There will be 77 hours of lectures, on Monday and Friday, in "Aula D" in the basement of SISSA Building, at the Miramare campus.
 The lectures will be structured as follows:
 
 |        | 9.30-11.00 | 11.00-11.30 | 11.30-13.00 | 14.30-15.30 | 15.30-17.30                       |
@@ -42,7 +42,7 @@ The final mark will be made up by the weighted sum of the marks obtained in home
 The marks range from 0 to 30, 18 being the minimum to pass (all the marks must be at minimum 18).
 
 
-#### ASSIGNEMETS:
+#### ASSIGNEMENTS:
 3 written exercises will be assigned, with a strict due date. Failing to submit the solutions, unless for serious reasons of non-academic nature, will deny the access to the final exam.
 
 70% if the final mark will be calculated from the exercises' marks, as detailed here after.
@@ -59,3 +59,47 @@ The final written test will consist in about 15 questions covering all the topic
 
 In case you wanted to improve your final mark, you could ask for an oral examination. That is at your own risk. Normally, if your oral examination goes through smoothly, you will only improve your result and you won't achieve a mark lower than what you already had.
 However, should you perform terribly, convincing us that your previous marks were not really related to your personal work, your mark could be put at risk.
+
+
+### References&Books
+
+#### Ref 1: High Performance Computing Modern Systems and Practices
+Available at ICTP library 
+Authors: Thomas Sterling Matthew Anderson Maciej Brodowicz
+eBook ISBN: 9780124202153
+Paperback ISBN: 9780124201583
+
+Some of the materials of this book are presented during some lectures.
+
+#### Ref 2: Introduction to High-Performance Scientific Computing,by Victor Eijkhout
+The source and pdf of the book (as well as lecture slides) can be found in this repository:
+https://bitbucket.org/VictorEijkhout/hpc-book-and-course
+10.5281/zenodo.49897
+
+Some of the materials presented in classes are taken from this book.
+
+#### Ref 3: Computer Organization and Design
+by D. A. Patterson and J. L. Hennessy
+The Morgan Kaufmann Series in Computer Architecture and Design
+easily available as pdf on the net.
+
+#### Ref 4: Introduction to High Performance Computing for Scientists and Engineers
+by Georg Hager and Gerhard Wellein
+Paperback: 356 pages
+Publication date  July 2, 2010
+Editors (Chapman & Hall/CRC Computational Science)
+
+
+#### Ref 5: Optimizing HPC Applications with Intel Cluster Tools 
+Paperback – October 15, 2014
+by Alexander Supalov  (Author), Andrey Semin  (Author), Michael Klemm  (Author), & 1 more
+ISBN-13: 978-1430264965  ISBN-10: 1430264969  Edition: 1st
+
+#### Ref 6: High Performance Parallelism Pearls, 1st Edition
+Multicore and Many-core Programming Approaches
+by Reinders   &    Jeffers  
+Morgan Kaufmann, Print Book ISBN :9780128021187
+
+
+
+
