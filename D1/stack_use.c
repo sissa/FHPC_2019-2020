@@ -86,8 +86,9 @@ int access_the_stack( void )
       for ( int i = 0; i < N_DEFAULT; i++ )
 	access += on_stack[ i ] + 1.0;
       
-      time    += CPU_TIME - t0;
-      std_dev += time*time;
+      timediff = CPU_TIME - t0;
+      time    += timediff;
+      std_dev += timediff*timediff;
     }
   
   time /= ITER;
@@ -117,8 +118,9 @@ int access_the_heap( void )
       for ( int i = 0; i < N_DEFAULT; i++ )
 	access += on_heap[ i ] + 1.0;
       
-      time    += CPU_TIME - t0;
-      std_dev += time*time;
+      timediff = CPU_TIME - t0;
+      time    += timediff;
+      std_dev += timediff*timediff;
     }
 
   free ( on_heap );
@@ -154,8 +156,9 @@ int access_the_heap_dp ( void )
       for ( entry = on_heap; ++entry < stop;  )
 	access += *entry + 1.0;
 	  
-      time    += CPU_TIME - t0;
-      std_dev += time*time;
+      timediff = CPU_TIME - t0;
+      time    += timediff;
+      std_dev += timediff*timediff;
     }
 
   free ( on_heap );
