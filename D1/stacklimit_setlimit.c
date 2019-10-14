@@ -115,7 +115,7 @@ int main(int argc, char **argv)
   // get the memory to be allocated in KB
   if(argc > 1)
     
-    S = (unsigned int)((int)(atof(*(argv+1)) * 1024));
+    S = (unsigned int)(atoi(*(argv+1)) * 1024);
   
   else
     {
