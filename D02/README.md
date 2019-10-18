@@ -1,1 +1,1 @@
-Lecture of Day 2
+Lecture of Day 3 + some more information
