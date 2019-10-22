@@ -15,8 +15,12 @@ The scope of the course is to give you:
 - an introduction to parallel/multi-threading programming with MPI and OpenMP
 - an introduction to basic and advanced techniques for code optimisation for single- and multi-threaded codes
 
-### Calendar&Location 
+### Calendar&Location
 
+ - Friday 11/10 : Room D Miramare campus    
+ - Monday 14/10 : Room 005 SISSA via Bonomea 
+ - Friday 18/10 : Room D Miramare campus 
+ - Monday 21/10 : Room 005 SISSA via Bonomea 
  - Friday 25/10 : Room D Miramare campus 
  - Monday 28/10 : Room 005 SISSA via Bonomea (till 2PM)
  - Monday 04/11 : Room D Miramare campus     (till 2PM) 
@@ -31,7 +35,10 @@ The scope of the course is to give you:
  - Monday 09/12 : Room 005 SISSA via Bonomea
  - Friday 13/12 : Room D Miramare campus (all day)
  - Monday 16/12 : Room 005 SISSA via Bonomea
-
+ - Friday 10/01 : Room D Miramare campus (all day)
+ - Monday 13/01 : Room 005 SISSA via Bonomea (all day)
+ - Friday 17/01 : Room D Miramare campus (all day) 
+ 
 
 ### Lectures
 
