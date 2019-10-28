@@ -2,7 +2,7 @@
 
 ### Due date : 23.59.04.11.2019
 
-***version 1.0 ( released at 9.30 28.11.2019)***
+***version 1.1 ( released at 13.00 28.11.2019)***
 
 #### Submission policy:  by email to cozzini@iom.cnr.it as zip file named as Surname.FirstName.zip
 
@@ -15,10 +15,9 @@ Structure of the files once decompressed:
 
 Report.pdf  will contain a detailed report on all the sections  in this documents. 
 	
-I strongly advise you to copy/edit  the structure of this  document  (in markdown format) with your preferred editor and keep the same structure of the document on your final report. Please make use of plots, tables to facilitate reading/understanding by us. 
+I strongly advise you to copy/edit  the structure of this  document  ( written in markdown format) with your preferred editor and keep the same structure of the document on your final report. Please make use of plots, tables to facilitate reading/understanding by us. 
 
 Directory codes should includes all the programs we requested to write. The programs should be complemented by a readme file that explain which software stack you used to compile and run all the programs you provided  and on which machine. 
-
 
 
 ##Section 0: (warm-up)
@@ -43,7 +42,7 @@ Directory codes should includes all the programs we requested to write. The prog
   |        | Your model | CPU  | Frequency | number  of core | Peak performance |
   | ------ | ---------- | ---- | --------- | --------------- | ---------------- |
   | Laptop |            |      |           |                 |                  |
-  |        |            |      |           |                 |                  |
+
 
  
 
@@ -61,7 +60,6 @@ Directory codes should includes all the programs we requested to write. The prog
   |            | Your model | sustained performance | size of matrix | Peak performance | memory |
   | ---------- | ---------- | --------------------- | -------------- | ---------------- | ------ |
   | SmartPhone |            |                       |                |                  |        |
-  |            |            |                       |                |                  |        |
 
 
 
@@ -97,9 +95,9 @@ Directory codes should includes all the programs we requested to write. The prog
 
     - Slaves send partial sum  ===>   $(P-1)T_{comm}$
 
-    - Master performs  one final sum ===>  $T_{comp}$
+    - Master performs  one final sum ===>  $(P-1) \times $T_{comp}$
 
-      the final model:    $T_p=   T_{comp}\times (1+ n/P)  + T_{read} + 2(P-1)\times T_{comm}  $
+      the final model:    $T_p=   T_{comp}\times (P -1 + n/P)  + T_{read} + 2(P-1)\times T_{comm}  $
 
 - compute scalability curves for such algorithm and make some plots
 
@@ -109,7 +107,7 @@ Directory codes should includes all the programs we requested to write. The prog
     - $T_{read}= 1 \times 10^{-4}$
     - $T_{comm}= 1 \times 10^{-6}$
 
-    Play with some value of N and plot against P  ( with P ranging from 1 to 1000)
+    Play with some value of N and plot against P  (with P ranging from 1 to 1000)
 
 - Comment on them:
 
@@ -192,13 +190,17 @@ The program should:
 
 - distribute to each processor the amount of work to be done
 
+- the array of integer numbers should contain integer numbers ( from 1 to N) 
+
 - deals with cases where N (size of the array) is not exactly divisible by P (number of Processors) 
 
 - collect the partial sums on one single processor and print it down.
 
-- measure the reading time , the communication times (initial distribution phase and final collectin phase)  and the computation time (hints: use MPI_walltime)
+- measure the reading time, the communication times (initial distribution phase and final collectin phase)  and the computation time (hints: use MPI_walltime)
 
 - write as final output the time taken by each processor
+
+- implement the algorithm with naive communication algorithms and THEN using collective operations
 
   
 
