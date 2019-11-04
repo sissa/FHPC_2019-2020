@@ -1,0 +1,4 @@
+#!/bin/sh
+gcc -O3 -march=native -fPIC -c -o ptiming.o ptiming.c
+#gcc -ggdb3 -fPIC -c -o ptiming.o ptiming.c
+ld -shared -o libptiming.so ptiming.o
