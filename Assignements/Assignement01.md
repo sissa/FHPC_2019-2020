@@ -1,8 +1,9 @@
 # First Assigment  FHPC course 
 
 ### Due date : 23.59.04.11.2019
+### CHANGED: new due date: 23.59.08.11.2019
 
-***version 1.1 ( released at 13.00 28.11.2019)***
+***version 1.2 ( released at 18.30 28.11.2019)***
 
 #### Submission policy:  by email to cozzini@iom.cnr.it as zip file named as Surname.FirstName.zip
 
@@ -132,15 +133,15 @@ Steps to do:
 - Compile the serial and parallel version.
 - Determine the CPU time required to calculate PI with the serial calculation using 1000000 (10 millions) iterations (stone throws). Make sure that this is the actual run time and does not include any system time.
 
-Hint: use /usr/bin/time command to time all the applications
+Hint: use /usr/bin/time command to time all the applications and consider here the walltime(elapsed) time as the right one.
 
-- Get the MPI code running for the same number of iterations.
+- Get the MPI code running for the same number of iterations (i.e. moves)
 
 The parallel code writes walltime for all the processor involved. Which of these times do you want to consider to estimate the parallel time ?
 
 - First let us do some running that constitutes a strong scaling test.
 
-This means keeping the problem size constant, or in other words, keeping Niter = 10 millions. Start by running the MPI code with only one processor doing the numerical computation. A comparison of this to the serial calculationgives you some idea of the overhead associated with MPI. Again what time do you consider here ?
+This means keeping the problem size constant, or in other words, keeping Niter = 10 millions. Start by running the MPI code with only one processor doing the numerical computation. A comparison of this to the serial calculation gives you some idea of the overhead associated with MPI. Again what time do you consider here ?
 
 - Keeping Niter = 10 millions, run the MPI code for 2, 4, 8 and 16 and 20 MPI processs.
 
@@ -157,8 +158,10 @@ A real study is of course a litte bit more complicated because we neeed to get t
 In any case it is important to script your job executions, so that you can quickly measure scalability. So in this part of the lab you need to implement a strong scaling script. Script will be implemented by means of bash scripting, or if you prefer you can use python as well.
 
 - Make a plot of run time  versus number of nodes from the data you have collected.
-- Strong scalability here would yield a straight line graph. Comment on your results. Repeat the work playing with a large dataset.
-- Provide a final plot with at least 3 different size and for each of the size report and comment your final results.
+   - please consider both elapsed time collected by /usr/bin/time command and the internal time (take the highest time among all the processors)
+    - provide a plot where you compare the scalability curves obtained using different times: comment the results.
+- Strong scalability here would yield a straight line graph. Comment on your results. Repeat the work playing with a large dataset (i.e. enlarge the number of iterations from 10 millions to 100 millions and to 1 billion. 
+- Provide a final plot with at least 3 different sizes  and for each of the them please report and comment your final results; to produce this final graph just use one of the two times at your choice. Comment again the results and your choice.  
 
 ### 2.2: identify a model for the parallel overhead
 
@@ -172,11 +175,15 @@ To do this please review carefully all the data collected so far and identify wh
 - Now let us do some running that constitutes a weak scaling test.
 
 This means increasing the problem size simultaneously with the number of nodes being used. In the present case, increasing the number of iterations, Niter.
+
 - Record the run time for each number of nodes and make a plot of the run time versus number of computing nodes.
 
-- Weak scaling would imply that the runtime remains constant as the problem size and the number of compute nodes increase in proportion. Modify your scripts to rapidly collect numbers for the weak scalability tests for differrent number of moves.
+- Weak scaling would imply that the runtime remains constant as the problem size ( i.e. number of moves, aka iterations)  and the number of compute nodes increase in proportion. Modify your scripts to rapidly collect numbers for the weak scalability tests for differrent number of moves.
 
-- Plot on the same graph the efficiency (T(1)/T(p)) of weak scalability for different number of moves and comment the results obtained.
+- Plot on the same graph the efficiency (T(1)/T(p)) of weak scalability for different number of iterations and comment the results obtained.
+ Comment: In this last point we are measuring weak scalability and we define above a sort of "weak efficiency"  as the ratio T(1)/T(P) as a way to  be able to plot within a single graph with the same scale the weak scaling behavior for different numbers of moves (i.e. different problem sizes) and make some comparison among them..
+
+
 
   
 
@@ -186,11 +193,12 @@ We request here to implement the sum of N number using MPI paradigm. Programming
 
 The program should: 
 
-- read from an input file  a number N arbitrarly large  (at least 1Billion number)
-
+- read from an input file a number N arbitrarly large  (at least 1Billion number)
+   - comment: you can avoid this reading and just define N as costant; if you do this please remember to check/update your performance model.
+   
 - distribute to each processor the amount of work to be done
 
-- the array of integer numbers should contain integer numbers ( from 1 to N) 
+- the array of integer numbers should contain integer numbers (from 1 to N); you can even skip the creation of the array.. 
 
 - deals with cases where N (size of the array) is not exactly divisible by P (number of Processors) 
 
