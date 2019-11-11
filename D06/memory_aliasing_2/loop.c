@@ -24,40 +24,33 @@
 #include <stdlib.h>
 #include "aliasing.h"
 
+#if defined (ASSIGN)
+#define OP +=
+#else
+#define OP =
+#endif
 
-void assign_float_array( int N, TYPE *C, TYPE *A, TYPE *B)
+
+void process_float_array( int N, const TYPE *C, TYPE *A, TYPE *B)
 {
 
   for ( int i = 0; i < N; i++ )
     {
-      A[ i ] += C[ i ];
-      B[ i ] += C[ i ];
+      A[ i ] OP C[ i ];
+      B[ i ] OP C[ i ];
     }
   
   return;
 }
 
 
-void assign_float_array_noaliasing( int N, TYPE * restrict C, TYPE * restrict A, TYPE * restrict B)
+void process_float_array_noaliasing( int N, const TYPE * restrict C, TYPE * restrict A, TYPE * restrict B)
 {
 
   for ( int i = 0; i < N; i++ )
     {      
-      A[ i ] += C[ i ];
-      B[ i ] += C[ i ];
-    }
-  
-  return;
-}
-
-
-void assign_float_array_noaliasing_withconst( int N, const TYPE * restrict C, TYPE * restrict A, TYPE * restrict B)
-{
-
-  for ( int i = 0; i < N; i++ )
-    {
-      A[ i ] += C[ i ];
-      B[ i ] += C[ i ];
+      A[ i ] OP C[ i ];
+      B[ i ] OP C[ i ];
     }
   
   return;

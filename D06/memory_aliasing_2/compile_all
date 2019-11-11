@@ -1,0 +1,18 @@
+#!/bin/bash
+
+declare -a compiler=("gcc" "icc" "pgcc")
+declare -a cstd=("-std=c11" "-std=c11" "-c11")
+declare -a optimization=("-O3 -march=native" "-O3 -fast" "-O4 -fast")
+
+length=${#compiler[@]}
+
+for (( i=0 ; i<$length; i++ ));
+do
+    CC=${compiler[$i]};
+    echo "- compiling with "$CC
+    
+    if [ ! -d $CC ]; then mkdir $CC; fi
+
+    $CC ${cstd[$i]} -o $CC/aliasing driver.c loop.c
+    $CC ${cstd[$i]} ${optimization[$i]} -o $CC/aliasing.O driver.c loop.c
+done

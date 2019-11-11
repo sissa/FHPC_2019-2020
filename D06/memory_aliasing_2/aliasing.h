@@ -30,8 +30,7 @@
 
 #define TYPE float
 
-typedef void (*loopfunc)(int, TYPE*, TYPE*, TYPE*);
+typedef void (*loopfunc)(int, const TYPE*, TYPE*, TYPE*);
 
-void assign_float_array( int, TYPE*, TYPE*, TYPE *);
-void assign_float_array_noaliasing( int, TYPE * restrict, TYPE* restrict, TYPE * restrict);
-void assign_float_array_noaliasing_withconst( int, const TYPE * restrict, TYPE* restrict, TYPE * restrict);
+void process_float_array           ( int, const TYPE*, TYPE*, TYPE *);
+void process_float_array_noaliasing( int, const TYPE * restrict, TYPE* restrict, TYPE * restrict);

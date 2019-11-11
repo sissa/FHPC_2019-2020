@@ -27,32 +27,23 @@
 #include <time.h>
 #include "aliasing.h"
 
+#define ALIGN 32
+
 int    compare  ( const void *A, const void *B );
-TYPE * allocate ( int N );
-  
-TYPE *A, *B, *C;
 
-TYPE * allocate( int N )
-{
-  TYPE *M;
-
-  M = (TYPE*) calloc ( N*3, sizeof(TYPE) );
-  A = M;
-  B = A + N;
-  C = A + 2*N;
-  return M;
-}
 
 int main ( int argc, char **argv )
 {
 
-  int N = N_def;
-  int top;
-  int type = 0;
+  int N               = N_def;
+  int type            = 0;
   double timing[ITER] = {0};
-  double sum[ITER] = {0};
-  TYPE *M;
-  
+  double sum[ITER]    = {0};
+#if defined (ASSIGN)
+  char message[] = {"assignment"};
+#else
+  char message[] = {"summation"};
+#endif
   struct timespec ts;
   clockid_t       id = CLOCK_PROCESS_CPUTIME_ID;
 
@@ -63,11 +54,17 @@ int main ( int argc, char **argv )
   if ( argc > 1 )
     {
       type = atoi( *(argv+1) );
+      
       if ( argc > 2 )
 	N = atoi( *(argv+2) );
     }
 
-  M = allocate( N );
+  TYPE _Alignas(ALIGN) * restrict A;
+  TYPE _Alignas(ALIGN) * restrict B;
+  TYPE _Alignas(ALIGN) * restrict C;
+  A = (TYPE*)aligned_alloc( ALIGN, N*sizeof(TYPE) );
+  B = (TYPE*)aligned_alloc( ALIGN, N*sizeof(TYPE) );
+  C = (TYPE*)aligned_alloc( ALIGN, N*sizeof(TYPE) );
 
   srand48(1010101);
   for ( int cc = 0; cc < N; cc++ )    
@@ -87,13 +84,13 @@ int main ( int argc, char **argv )
     {
       if( type == 0)
 	{
-	  function = assign_float_array;
-	  printf("aliasing won't be explicitly excluded\n");
+	  function = process_float_array;
+	  printf("aliasing won't be explicitly excluded in %s.. ", message);
 	}
       else
 	{	    
-	  function = assign_float_array_noaliasing;
-	  printf("aliasing will be explicitly excluded\n");
+	  function = process_float_array_noaliasing;
+	  printf("aliasing will be explicitly excluded in %s.. ", message);
 	}
 
       for ( int cc = 0; cc < ITER; cc++ )
@@ -104,29 +101,16 @@ int main ( int argc, char **argv )
 	  
 	  timing[ cc ] = time_end;
 	  
-	  // just to let the compiler believe we are doing something with C
+	  // just to let the compiler believe we are doing something
 	  for ( int ii = 0; ii < N; ii++ )
-	     sum[cc] += A[ii]+B[ii];
+	    sum[cc] += A[ii]+B[ii];
 	  
 	}
     }
-  else
-      for ( int cc = 0; cc < ITER; cc++ )
-	{
-	  double time_start = TCPU_TIME;
-	  assign_float_array_noaliasing_withconst( N, C, A, B );
-	  double time_end = TCPU_TIME - time_start;
-	  
-	  timing[ cc ] = time_end;
-	  
-	  /* // just to let the compiler believe we are doing something with C */
-	  for ( int ii = 0; ii < N; ii++ )
-	    sum[cc] += C[ii];
-	  
-	}
 
   qsort ( timing, ITER, sizeof(double), compare);
-  top = ITER/TOP_FACTOR;
+  
+  int top = ITER/TOP_FACTOR;
   if (top < 3)
     top = 3;
 
@@ -136,6 +120,8 @@ int main ( int argc, char **argv )
     {
       time_avg  += timing[cc];
       sigma_avg += timing[cc]*timing[cc];
+
+      // just to let the compiler believe we are doing something
       printf("%g ", sum[cc]);
     }
   time_avg /= top;
@@ -145,7 +131,9 @@ int main ( int argc, char **argv )
 	  top, ITER,
 	  time_avg, sigma_avg - time_avg*time_avg);
   
-  free( M );
+  free( C );
+  free( B );
+  free( A );
   
   return 0;
 }

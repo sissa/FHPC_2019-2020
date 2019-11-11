@@ -1,0 +1,91 @@
+#!/bin/bash
+
+#./compile_all
+
+name=pointers_aliasing_
+declare -a types=("a" "b" "c")
+declare -a type_names=("alias" "no-alias" "no-alias+mem_align")
+
+declare -a opts=("" ".O")
+declare -a opt_names=("no-opt" "opt")
+
+declare -a compilers=("gcc" "icc" "pgcc")
+
+ntypes=${#types[@]}
+nopts=${#opts[@]}
+ncompilers=${#compilers[@]}
+
+# --------------------------------------------------
+# get results
+timings=()
+for (( t=0; t<ntypes; t++));
+do
+    type=${types[$t]}
+
+    printf "running %s\n" ${type_names[$t]}
+
+    for (( c=0; c<ncompilers; c++));
+    do	
+	for (( o=0; o<nopts; o++ ));
+	do
+	    opt=${opts[$o]}
+	    printf "\t%5s %3s\n" ${compilers[$c]} $opt
+#	    echo "running "${compilers[$c]}"/"$name$opt $typename
+	    timings+=($(${compilers[$c]}/$name$type$opt | grep averaging | cut -d'-' -f3 | cut -d' ' -f2))
+	done
+    done
+done
+
+# --------------------------------------------------
+# write results on the stdout
+
+# ............................
+# headers
+echo
+echo "timings in seconds"
+printf "%20s" ""
+for (( c=0; c<ncompilers; c++));
+do
+    printf "%-10s\t%10s\t" ${compilers[$c]} ""
+done
+echo
+
+printf "%20s" ""
+for (( c=0; c<ncompilers; c++));
+do
+    for (( o=0; o<nopts; o++ ));
+    do
+	printf "%-10s\t" ${opt_names[$o]}
+    done
+done
+echo
+
+printf "%20s" ""
+for (( c=0; c<ncompilers; c++));
+do
+    for (( o=0; o<nopts; o++ ));
+    do
+	printf "%-10s\t" "--------"
+    done
+done
+echo
+
+
+# ............................
+# results
+idx=0
+for (( t=0; t<ntypes; t++));
+do
+    printf "%-20s" ${type_names[$t]}
+    for (( o=0; o<nopts; o++ ));	   
+    do
+	for (( c=0; c<ncompilers; c++));
+	do
+	    printf "%7.5f%3s\t" ${timings[$idx]} ""
+	    idx=$(($idx+1))
+	done
+    done
+    printf "\n"
+done
+
+	
