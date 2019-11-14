@@ -1,9 +1,9 @@
-## Day 4: parallel programming and MPI programming
+## Day 4: parallel programming concepts
 
 date: Monday 21/10/2019 
 
 ### lectures
-   -Stefano Cozzini : introduction to parallel programming 
+   -Stefano Cozzini : [introduction to parallel programming](DSCC03.pdf)
 
 ### references
 
