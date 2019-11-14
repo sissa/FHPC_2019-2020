@@ -17,13 +17,13 @@ The scope of the course is to give you:
 
 ### Calendar&Location
 
- - [Friday 11/10 : Room D Miramare ](./D00/README.md)
- - [Monday 14/10 : Room 005 SISSA via Bonomea](./D01/README.md)
- - [Friday 18/10 : Room D Miramare campus](./D02/README.md) 
- - [Monday 21/10 : Room 005 SISSA via Bonomea](./D03/README.md) 
- - [Friday 25/10 : Room D Miramare campus](D04/README.md) 
- - [Monday 28/10 : Room 005 SISSA via Bonomea (till 2PM)](D05/README.md)
- - Monday 04/11 : Room D Miramare campus (till 2PM)(D06/README.md)
+ - Friday 11/10 : Room D Miramare: [ lecture materials](D00/README.md)
+ - Monday 14/10 : Room 005 SISSA via Bonomea: [lecture materials](D01/README.md)
+ - Friday 18/10 : Room D Miramare campus:  [ lecture materials](D02/README.md) 
+ - Monday 21/10 : Room 005 SISSA via Bonomea [lecture materials](D03/README.md) 
+ - Friday 25/10 : Room D Miramare campus] [lecture materials](D04/README.md) 
+ - Monday 28/10 : Room 005 SISSA via Bonomea (till 2PM)[lecture materials](D05/README.md)
+ - Monday 04/11 : Room D Miramare campus (till 2PM) [lecture materials](D06/README.md)
  - Friday 08/11 : Room D Miramare campus  (D07/README.md)
  - Monday 11/11 : Room 005 SISSA via Bonomea (D08/README.md) 
  - Friday 15/11 : Room D Miramare campus  (all day) (D09/README.md)

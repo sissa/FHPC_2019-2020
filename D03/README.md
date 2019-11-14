@@ -1,6 +1,6 @@
 ## Day 4: parallel programming and MPI programming
 
-date: 21/10 
+date: Monday 21/10/2019 
 
 ### lectures
    -Stefano Cozzini : introduction to parallel programming 
@@ -9,3 +9,6 @@ date: 21/10
 
    - https://computing.llnl.gov/tutorials/parallel_comp/
    - Reference 2 : chapter 2 section 2.1 2.2
+
+### codes provided
+

@@ -3,8 +3,8 @@
 Date: Friday 15/11/19
 
 ### lectures:
-  Stefano Cozzini:
   Luca Tornatore:
+  Stefano Cozzini:
 
 ### references:
  
