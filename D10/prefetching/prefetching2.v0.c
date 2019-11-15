@@ -35,14 +35,31 @@
 #define PAPI_EVENTS_NUM 5
 int       papi_events[PAPI_EVENTS_NUM] = {PAPI_TOT_INS, PAPI_TOT_CYC, PAPI_L1_DCM, PAPI_L2_DCM, PAPI_L3_LDM};
 long long papi_values[PAPI_EVENTS_NUM] = {0};
+int       papi_EventSet                = PAPI_NULL;
 
 #define PAPI_CHECK_RES( R ) { if ( (R) != PAPI_OK ) {printf("a problem with PAPI (code %d) arise at line %d\n", (R), __LINE__); return (R); } }
 
-#define PAPI_START_CNTR { int res = PAPI_start_counters(papi_events, PAPI_EVENTS_NUM); PAPI_CHECK_RES(res); }
-#define PAPI_STOP_CNTR  { int res = PAPI_stop_counters(papi_values, PAPI_EVENTS_NUM); PAPI_CHECK_RES(res); }
+#define PCHECK(e) { if ( e!= PAPI_OK) printf("Problem in papi call, line %d\n", __LINE__); return 1; }
 
+#define PAPI_INIT {   int retval = PAPI_library_init(PAPI_VER_CURRENT);	\
+  if (retval != PAPI_VER_CURRENT)					\
+    printf("wrong PAPI initialization: %d instead of %d\n", retval, PAPI_VER_CURRENT); \
+  retval = PAPI_create_eventset(&papi_EventSet);  PCHECK(retval);	\
+  for ( int i = 0; i < PAPI_EVENTS_NUM; i++) {				\
+    retval = PAPI_query_event(papi_events[i]) ; PCHECK(retval);		\
+    retval = PAPI_add_event(papi_EventSet, papi_events[i]);  PCHECK(retval);}  }
+
+// to use HIGH-LEVEL API
+//#define PAPI_START_CNTR { int res = PAPI_start_counters(papi_events, PAPI_EVENTS_NUM); PAPI_CHECK_RES(res); }
+//#define PAPI_STOP_CNTR  { int res = PAPI_stop_counters(papi_values, PAPI_EVENTS_NUM); PAPI_CHECK_RES(res); }
+
+// to use NORMAL API
+#define PAPI_START_CNTR { int retval = PAPI_start(papi_EventSet); PCHECK(retval); }
+#define PAPI_STOP_CNTR  { int retval = PAPI_stop(papi_EventSet, papi_values); PCHECK(retval); }
 #else
 
+#define PAPI_INIT
+#define PCHECK( e )
 #define PAPI_CHECK_RES( R )
 #define PAPI_START_CNTR
 #define PAPI_STOP_CNTR
@@ -60,6 +77,9 @@ long long papi_values[PAPI_EVENTS_NUM] = {0};
 #endif
 #ifndef _MEM_WIDTH
 #define _MEM_WIDTH 64	  // the width in bits of a DRAM chunk
+#endif
+#ifndef _MEM_CHNS
+#define _MEM_CHNS 2
 #endif
 
 #define myFloat     double
@@ -120,6 +140,11 @@ int main( int argc, char **argv)
     }                                                                                //                   | < -----------+          
 										     // < ----------------+                      
 
+
+  PAPI_INIT;
+  
+
+  
   // - V0, basic naive version
   //   straigthforward sum
   //                                                                                 // < ----------------+
@@ -149,10 +174,11 @@ int main( int argc, char **argv)
   										     // 
   // get the maximum transfer rate in GB/sec                                         // < ----------------+
   // _MEM_CLOCK is in Mhz                                                            //                   |
-  double max_GB_per_sec          = (double)_MEM_CLOCK / 1000 * (_MEM_WIDTH / 8);     //  check the actual |
-  // get the transfer rate obtained                                                  //  transfer rate    |
-  double transfer_rate_in_GB_sec = (double)N*2*sizeof(double) /                      //  with the theoret.|
-    (1024*1024*1024) / avg;                                                          //  one              |
+  double max_GB_per_sec          = (double)_MEM_CLOCK / 1000 *                       //  check the actual |
+    (_MEM_WIDTH / 8) *_MEM_CHNS;                                                     //  transfer rate    |
+  // get the transfer rate obtained                                                  //  with the theoret.|
+  double transfer_rate_in_GB_sec = (double)N*2*sizeof(double) /                      //  one              |
+    (1024*1024*1024) / avg;                                                          //                   |
   printf("transfer rate was %6.3g GB/sec "                                           //                   |
 	 "(%7.4g%% of theoretical max that is %5.2g GB/sec)\n",                      //                   |
 	 transfer_rate_in_GB_sec,                                                    //                   |
