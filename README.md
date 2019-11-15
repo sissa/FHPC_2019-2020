@@ -17,29 +17,29 @@ The scope of the course is to give you:
 
 ### Calendar&Location
 
- - Friday 11/10 : Room D Miramare campus    
- - Monday 14/10 : Room 005 SISSA via Bonomea 
- - Friday 18/10 : Room D Miramare campus 
- - Monday 21/10 : Room 005 SISSA via Bonomea 
- - Friday 25/10 : Room D Miramare campus 
- - Monday 28/10 : Room 005 SISSA via Bonomea (till 2PM)
- - Monday 04/11 : Room D Miramare campus     (till 2PM) 
- - Friday 08/11 : Room D Miramare campus  
- - Monday 11/11 : Room 005 SISSA via Bonomea 
- - Friday 15/11 : Room D Miramare campus 
- - Monday 18/11 : Room 005 SISSA via Bonomea  (till 2PM)
- - Friday 22/11 : Room D Miramare campus
- - Monday 25/11 : Room 005 SISSA via Bonomea 
- - Friday 29/11 : Room D Miramare campus
- - Monday 02/12 : Room 005 SISSA via Bonomea
- - Friday 06/12 : Room D Miramare campus
- - Monday 09/12 : Room 005 SISSA via Bonomea
- - Friday 13/12 : Room D Miramare campus (all day)
- - Monday 16/12 : Room 005 SISSA via Bonomea
- - Friday 10/01 : Room D Miramare campus (all day)
- - Monday 13/01 : Room 005 SISSA via Bonomea (all day)
- - Friday 17/01 : Room D Miramare campus (all day) 
- 
+ - Friday 11/10 : Room D Miramare: [ lecture materials](D00/README.md)
+ - Monday 14/10 : Room 005 SISSA via Bonomea: [lecture materials](D01/README.md)
+ - Friday 18/10 : Room D Miramare campus:  [ lecture materials](D02/README.md) 
+ - Monday 21/10 : Room 005 SISSA via Bonomea [lecture materials](D03/README.md) 
+ - Friday 25/10 : Room D Miramare campus] [lecture materials](D04/README.md) 
+ - Monday 28/10 : Room 005 SISSA via Bonomea (till 2PM)[lecture materials](D05/README.md)
+ - Monday 04/11 : Room D Miramare campus (till 2PM) [lecture materials](D06/README.md)
+ - Friday 08/11 : Room D Miramare campus  (D07/README.md)
+ - Monday 11/11 : Room 005 SISSA via Bonomea (D08/README.md) 
+ - Friday 15/11 : Room D Miramare campus  (all day) (D09/README.md)
+ - Monday 18/11 : Room 005 SISSA via Bonomea  (till 2PM)(D10/README.md)
+ - Friday 22/11 : Room D Miramare campus(D11/README.md)
+ - Monday 25/11 : Room 005 SISSA via Bonomea (D12/README.md)
+ - Friday 29/11 : Room D Miramare campus(D13/README.md)
+ - Monday 02/12 : Room 005 SISSA via Bonomea(D14/README.md)
+ - Friday 06/12 : Room D Miramare campus(D15/README.md)
+ - Monday 09/12 : Room 005 SISSA via Bonomea(D16/README.md)
+ - Friday 13/12 : Room D Miramare campus (all day)(D17/README.md)
+ - Monday 16/12 : Room 005 SISSA via Bonomea(D18/README.md)
+ - Friday 10/01 : Room D Miramare campus (all day)(D19/README.md)
+ - Monday 13/01 : Room 005 SISSA via Bonomea (all day)(D20/README.md)
+ - Friday 17/01 : Room D Miramare campus (all day)(D21/README.md)
+
 
 ### Lectures
 
@@ -79,7 +79,6 @@ The assignments's schedule will be the following:
 
 #### FINAL TEST:
 The final written test will consist in about 15 questions covering all the topics mentioned during the lectures. The corresponding mark will weight 30% of the final mark.
-
 
 In case you wanted to improve your final mark, you could ask for an oral examination. That is at your own risk. Normally, if your oral examination goes through smoothly, you will only improve your result and you won't achieve a mark lower than what you already had.
 However, should you perform terribly, convincing us that your previous marks were not really related to your personal work, your mark could be put at risk.
