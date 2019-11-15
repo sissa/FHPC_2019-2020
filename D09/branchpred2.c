@@ -65,13 +65,15 @@
 int         papi_events[PAPI_EVENTS_NUM] = {PAPI_TOT_CYC,		\
 					    PAPI_TOT_INS,		\
 					    PAPI_BR_CN,			\
-					    PAPI_BR_MSP};                
+					    PAPI_BR_MSP};
+int         papi_EventSet                = PAPI_NULL;
+
 #define CYC 0
 #define INS 1
 #define BRN 2
 #define MBR 3
-long long   papi_values[PAPI_EVENTS_NUM] = {0};		    /* this is the counter              */
-long long   papi_tot_values[PAPI_EVENTS_NUM] = {0};	    /* this is the accumulator          */
+long long   papi_values       [PAPI_EVENTS_NUM] = {0};	    /* this is the counter              */
+long long   papi_tot_values   [PAPI_EVENTS_NUM] = {0};	    /* this is the accumulator          */
 long double papi_stddev_values[PAPI_EVENTS_NUM] = {0.0};    /* this is the accum. for the stddev*/
 
 							    /* defines the macro that check for_*/
@@ -80,10 +82,22 @@ long double papi_stddev_values[PAPI_EVENTS_NUM] = {0.0};    /* this is the accum
       printf("a problem with PAPI (code %d) arise at line %d\n", (R), __LINE__); return (R); } }
 
 							    /* start the counters               */
-#define PAPI_START_CNTRS { int res = PAPI_start_counters(papi_events, PAPI_EVENTS_NUM); PAPI_CHECK_RES(res); }
+#define PCHECK(e) { if ( e!= PAPI_OK) printf("Problem in papi call, line %d\n", __LINE__); return 1; }
 
+#define PAPI_INIT {   int retval = PAPI_library_init(PAPI_VER_CURRENT);	\
+  if (retval != PAPI_VER_CURRENT)					\
+    printf("wrong PAPI initialization: %d instead of %d\n", retval, PAPI_VER_CURRENT); \
+  retval = PAPI_create_eventset(&papi_EventSet);  PCHECK(retval);	\
+  for ( int i = 0; i < PAPI_EVENTS_NUM; i++) {				\
+    retval = PAPI_query_event(papi_events[i]) ; PCHECK(retval);		\
+    retval = PAPI_add_event(papi_EventSet, papi_events[i]);  PCHECK(retval);}  }
+
+
+//#define PAPI_START_CNTRS { int res = PAPI_start_counters(papi_events, PAPI_EVENTS_NUM); PAPI_CHECK_RES(res); }
+#define PAPI_START_CNTRS { int retval = PAPI_start(papi_EventSet); PCHECK(retval); }
 							    /* stop the cntrs and get the values*/
-#define PAPI_STOP_CNTRS  { int res = PAPI_stop_counters(papi_values, PAPI_EVENTS_NUM); PAPI_CHECK_RES(res); }
+//#define PAPI_STOP_CNTRS  { int res = PAPI_stop_counters(papi_values, PAPI_EVENTS_NUM); PAPI_CHECK_RES(res); }
+#define PAPI_STOP_CNTRS  { int retval = PAPI_stop(papi_EventSet, papi_values); PCHECK(retval); }
 
 							    /* accumulate the counters values   */
 #define ACC_PAPI_VALUES { for ( int pp = 0; pp < PAPI_EVENTS_NUM; pp++ ) { \
@@ -93,6 +107,8 @@ long double papi_stddev_values[PAPI_EVENTS_NUM] = {0.0};    /* this is the accum
 
 #else                                  /* USE_PAPI ELSE --------------------------------------- */
 
+#define PAPI_INIT
+#define PCHECK( e )
 #define PAPI_CHECK_RES( R )
 #define PAPI_START_CNTRS
 #define PAPI_STOP_CNTRS
@@ -189,6 +205,8 @@ int main(int argc, char **argv)
   
   printf( " done\n");
 
+  PAPI_INIT;
+  
 							    /* initialize the workng arrays     */
   memcpy(A, Ac, SIZE*2*sizeof(int));	
 
