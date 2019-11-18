@@ -10,15 +10,14 @@ typedef struct {
   char *event_name;
 } papi_myevent;
 
-char * const event_names[] = {"TOT INS", "TOT CYC", "TOT LD INS", "L1 Dm", "L2 Dm", "TLB Dm", "CYC no ins completed"};
 papi_myevent papi_events[PAPI_EVENTS_NUM]   = {\
-  {PAPI_TOT_INS, -1, event_names[0]},
-  {PAPI_TOT_CYC, -1, event_names[1]},
-  {PAPI_LD_INS,  -1, event_names[2]},
-  {PAPI_L1_DCM,   2, event_names[3]},
-  {PAPI_L2_DCM,   2, event_names[4]},
-  {PAPI_TLB_DM,   2, event_names[5]},
-  {PAPI_STL_CCY,  1, event_names[6]}};
+  {PAPI_TOT_INS, -1, "TOT INS"},
+  {PAPI_TOT_CYC, -1, "TOT CYC"},
+  {PAPI_LD_INS,  -1, "TOT LD INS"},
+  {PAPI_L1_DCM,   2, "L1 Dm"},
+  {PAPI_L2_DCM,   2, "L2 Dm",
+  {PAPI_TLB_DM,   2, "TLB Dm",
+  {PAPI_STL_CCY,  1, "CYC no ins completed"}};
 
 int       papi_SetEvents_num                = 0;                // how many events have been set 
 int       papi_event_set[PAPI_EVENTS_NUM]   = {0};              // record whether each event has been set

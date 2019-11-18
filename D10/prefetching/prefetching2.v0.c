@@ -33,6 +33,7 @@
 #include <math.h>
 #include "mypapi.h"
 
+
 #define CPU_TIME (clock_gettime( CLOCK_PROCESS_CPUTIME_ID, &ts ), \
 		  (double)ts.tv_sec +				  \
 		  (double)ts.tv_nsec * 1e-9)
