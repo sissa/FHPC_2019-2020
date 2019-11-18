@@ -56,13 +56,15 @@ It produces two files:
 
 The results on my laptop look like:
 
-![no-opt](cache_size.miss.png)*Fig 1: L1 and L2 misses with no optmization*
+![no-opt](./cache_size/cache_size.miss.png)*Fig 1: L1 and L2 misses with no optmization*
 
 ![no opt](/home/luca/work/TEACHING/CODES/Memory/cache/cache_size.cpe.png)*Fig. 2: CPE and L2 misses with no optimization*
 
-![no-opt](./cache_size.o3N.miss.png)*Fig 3: L1 and L2 misses with -O3 -march=native*
+![no-opt](./cache_size/cache_size.O3n.miss.png)*Fig 3: L1 and L2 misses with -O3 -march=native*
 
-![no-opt](/home/luca/work/TEACHING/CODES/Memory/cache/cache_size.o3N.miss.png)*Fig 4: CPE and L2 misses with -O3 -march=native*
+
+
+![no-opt](./cache_size/cache_size.O3n.cpe.png)*Fig 4: CPE and L2 misses with -O3 -march=native*
 
 #### 1.3 hot and cold fields in data structures
 
