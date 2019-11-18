@@ -21,50 +21,18 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-
+#if defined(__STDC__)
+#  if (__STDC_VERSION__ >= 199901L)
+#     define _XOPEN_SOURCE 700
+#  endif
+#endif
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
 #include <string.h>
 #include <math.h>
+#include "mypapi.h"
 
-
-#ifdef USE_PAPI
-#include <papi.h>
-
-#define PAPI_EVENTS_NUM 5
-int       papi_events[PAPI_EVENTS_NUM] = {PAPI_TOT_INS, PAPI_TOT_CYC, PAPI_L1_DCM, PAPI_L2_DCM, PAPI_L3_LDM};
-long long papi_values[PAPI_EVENTS_NUM] = {0};
-int       papi_EventSet                = PAPI_NULL;
-
-#define PAPI_CHECK_RES( R ) { if ( (R) != PAPI_OK ) {printf("a problem with PAPI (code %d) arise at line %d\n", (R), __LINE__); return (R); } }
-
-#define PCHECK(e) { if ( e!= PAPI_OK) printf("Problem in papi call, line %d\n", __LINE__); return 1; }
-
-#define PAPI_INIT {   int retval = PAPI_library_init(PAPI_VER_CURRENT);	\
-  if (retval != PAPI_VER_CURRENT)					\
-    printf("wrong PAPI initialization: %d instead of %d\n", retval, PAPI_VER_CURRENT); \
-  retval = PAPI_create_eventset(&papi_EventSet);  PCHECK(retval);	\
-  for ( int i = 0; i < PAPI_EVENTS_NUM; i++) {				\
-    retval = PAPI_query_event(papi_events[i]) ; PCHECK(retval);		\
-    retval = PAPI_add_event(papi_EventSet, papi_events[i]);  PCHECK(retval);}  }
-
-// to use HIGH-LEVEL API
-//#define PAPI_START_CNTR { int res = PAPI_start_counters(papi_events, PAPI_EVENTS_NUM); PAPI_CHECK_RES(res); }
-//#define PAPI_STOP_CNTR  { int res = PAPI_stop_counters(papi_values, PAPI_EVENTS_NUM); PAPI_CHECK_RES(res); }
-
-// to use NORMAL API
-#define PAPI_START_CNTR { int retval = PAPI_start(papi_EventSet); PCHECK(retval); }
-#define PAPI_STOP_CNTR  { int retval = PAPI_stop(papi_EventSet, papi_values); PCHECK(retval); }
-#else
-
-#define PAPI_INIT
-#define PCHECK( e )
-#define PAPI_CHECK_RES( R )
-#define PAPI_START_CNTR
-#define PAPI_STOP_CNTR
-
-#endif
 
 #define CPU_TIME (clock_gettime( CLOCK_PROCESS_CPUTIME_ID, &ts ), \
 		  (double)ts.tv_sec +				  \
@@ -72,14 +40,14 @@ int       papi_EventSet                = PAPI_NULL;
 
 
 
-#ifndef _MEM_CLOCK
-#define _MEM_CLOCK 1867	  // the clock of the DRAM
+#ifndef _MEM_CLOCK        // the clock of the DRAM
+#define _MEM_CLOCK 1867	  
 #endif
-#ifndef _MEM_WIDTH
-#define _MEM_WIDTH 64	  // the width in bits of a DRAM chunk
+#ifndef _MEM_WIDTH        // the width in bits of a DRAM chunk
+#define _MEM_WIDTH 64	  
 #endif
-#ifndef _MEM_CHNS
-#define _MEM_CHNS 2
+#ifndef _MEM_CHNS         // the number of memory channels
+#define _MEM_CHNS 2       
 #endif
 
 #define myFloat     double
@@ -185,21 +153,10 @@ int main( int argc, char **argv)
 	 transfer_rate_in_GB_sec / max_GB_per_sec * 100, max_GB_per_sec);            // < ----------------+
   										     //
                                                                                      //
-#ifdef USE_PAPI
-  double tot_accesses = N;
-  printf("\tPAPI events:\n"
-	 "\tINS  : %12lld\n"
-	 "\tCYC  : %12lld\n"
-	 "\tL1 DM: %12lld (%5.3g)\n"
-	 "\tL2 DM: %12lld (%5.3g)\n"
-	 "\tL3 LM: %12lld (%5.3g)\n",
-	 papi_values[0], papi_values[1],
-	 papi_values[2], papi_values[2] / tot_accesses,
-	 papi_values[3], papi_values[3] / tot_accesses,
-	 papi_values[4], papi_values[4] / tot_accesses);
-#endif
+
+  PAPI_WRITE_COUNTERS;
                                                                                      //
   free(wipe_cache);								     //  < -- free the allocated memory -+
-  free(array);									     //  < -- note the reverse order    -+
+  free(array);									     //  
   return 0;									     //                   
 }
