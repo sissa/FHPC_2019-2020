@@ -3,8 +3,14 @@
 Date: Monday 18/11/19
 
 ### lectures:
-  Luca Tornatore: OpenMP and Pipelines
-  Stefano Cozzini: [Evaluation_of_a_multicore_architecture](Evaluation.md)
+ - Luca Tornatore: OpenMP  and Pipelines
+ - Stefano Cozzini: [Evaluation_of_a_multicore_architecture](Evaluation1.md)
 
 ### references:
+
+### packages and tutorial associated:
+
+ - [hwloc](https://www.open-mpi.org/projects/hwloc/)
+ - [likwid](https://github.com/RRZE-HPC/likwid/wiki)
+ 
  
