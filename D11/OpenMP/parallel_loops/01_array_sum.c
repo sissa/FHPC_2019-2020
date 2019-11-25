@@ -129,12 +129,12 @@ int main( int argc, char **argv )
 #else
 
   
-#pragma omp parallel reduction(+:th_avg_ime) \		    // in this region there are 2 different
-  reduction(min:th_min_time)                                // reductions: the one of runtime, which
-  {                                                         // happens in the whole parallel region;
-    struct  timespec myts;                                  // and the one on S, which takes place
-    double mystart = CPU_TIME_th;                           // in the for loop.
-#pragma omp for reduction(+:S)                              
+#pragma omp parallel reduction(+:th_avg_time) \
+  reduction(min:th_min_time)                                // in this region there are 2 different
+  {                                                         // reductions: the one of runtime, which
+    struct  timespec myts;                                  // happens in the whole parallel region;
+    double mystart = CPU_TIME_th;                           // and the one on S, which takes place  
+#pragma omp for reduction(+:S)                              // in the for loop.                     
     for ( int ii = 0; ii < N; ii++ )
       S += array[ii];
 
