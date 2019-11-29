@@ -12,9 +12,9 @@
 - **to work out the exercise 0**
 - **to work out one exercise chosen from the pool of problems [1-3]**
 
-Please, upload the materials into this google drive folder _by the midnight of the due date_ :
+Please, email me the materials in the form of attached tar  _by the midnight of the due date_ :
 
-https://drive.google.com/drive/folders/1Im2fbUKS5gUGv3HHYoRYpzev5Y00EWRM?usp=sharing
+<font color='red'>_luca.tornatore@inaf.it_</font>
 
 A quite logical way to present the work would be:
 
@@ -201,7 +201,7 @@ In the cancellation model, there are 2 fundamental point:
 1. the `cancel` construct, at which a thread breaks the loop
 2. the `cancellation` point, at which a thread checks whether there is a request for cancellation
 
-![image-20191127203117386](/home/luca/work/TEACHING/DSSC/2019/image-20191127203117386.png)
+![image](./image.png)
 
 The cancellation construct exists for the following parallel regions:
 
