@@ -30,27 +30,37 @@
 #     define _XOPEN_SOURCE 700
 #  endif
 #endif
+#define _GNU_SOURCE
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
 #include <sys/syscall.h>
+#include <sched.h>
 #include <omp.h>
 
 
 #define N_default 1000
 
-#define CPU_TIME_W (clock_gettime( CLOCK_REALTIME, &ts ), (double)ts.tv_sec +	\
-		    (double)ts.tv_nsec * 1e-9)
+#if defined(_OPENMP)
+#define CPU_TIME (clock_gettime( CLOCK_REALTIME, &ts ), (double)ts.tv_sec + \
+		  (double)ts.tv_nsec * 1e-9)
 
-#define CPU_TIME_T (clock_gettime( CLOCK_THREAD_CPUTIME_ID, &myts ), (double)myts.tv_sec +	\
+#define CPU_TIME_th (clock_gettime( CLOCK_THREAD_CPUTIME_ID, &myts ), (double)myts.tv_sec +	\
 		     (double)myts.tv_nsec * 1e-9)
 
-#define CPU_TIME_P (clock_gettime( CLOCK_PROCESS_CPUTIME_ID, &ts ), (double)ts.tv_sec +	\
-		   (double)ts.tv_nsec * 1e-9)
+#else
 
+#define CPU_TIME (clock_gettime( CLOCK_PROCESS_CPUTIME_ID, &ts ), (double)ts.tv_sec + \
+		  (double)ts.tv_nsec * 1e-9)
+#endif
 
+#ifdef OUTPUT
+#define PRINTF(...) printf(__VA_ARGS__)
+#else
+#define PRINTF(...)
+#endif
 
 #define CPU_ID_ENTRY_IN_PROCSTAT 39
 #define HOSTNAME_MAX_LENGTH      200
@@ -67,7 +77,7 @@ int main( int argc, char **argv )
   int     nthreads = 1;
   
   struct  timespec ts;
-  double *array;;
+  double *array;
 
   /*  -----------------------------------------------------------------------------
    *   initialize 
@@ -78,24 +88,25 @@ int main( int argc, char **argv )
   if ( argc > 1 )
     N = atoi( *(argv+1) );
 
-  if ( (array = (double*)calloc( N, sizeof(double) )) == NULL )
+  if ( (array = (double*)malloc( N * sizeof(double) )) == NULL ) {
     printf("I'm sorry, on some thread there is not"
 	   "enough memory to host %lu bytes\n",
-	   N * sizeof(double) ); return 1;
+	   N * sizeof(double) ); return 1; }
   
   // just give notice of what will happen and get the number of threads used
+#if defined(_OPENMP)  
 #pragma omp parallel
   {
 #pragma omp master
     {
       nthreads = omp_get_num_threads();
-      printf("omp summation with %d threads\n", nthreads );
+      PRINTF("omp summation with %d threads\n", nthreads );
     }
     int me = omp_get_thread_num();
 #pragma omp critical
-    printf("thread %2d is running on core %2d\n", me, get_cpu_id() );    
+    PRINTF("thread %2d is running on core %2d\n", me, get_cpu_id() );    
   }
-
+#endif
 
   // initialize the array;
   // each thread is "touching"
@@ -116,13 +127,38 @@ int main( int argc, char **argv )
 
 
   double S       = 0;                                       // this will store the summation
-  double tstart  = CPU_TIME_W;
-    
-#pragma omp parallel for reduction(+:S)
+  double th_avg_time = 0;                                   // this will be the average thread runtime
+  double th_min_time = 1e11;                                // this will be the min thread runtime.
+							    // contrasting the average and the min
+							    // time taken by the threads, you may
+							    // have an idea of the unbalance.
+  
+  double tstart  = CPU_TIME;
+
+#if !defined(_OPENMP)
+  
+  for ( int ii = 0; ii < N; ii++ )                          // well, you may notice this implementation
+    S += array[ii];                                         // is particularly inefficient anyway
+
+#else
+
+#pragma omp parallel reduction(+:th_avg_time)				\
+  reduction(min:th_min_time)                                // in this region there are 2 different
+  {                                                         // reductions: the one of runtime, which
+    struct  timespec myts;                                  // happens in the whole parallel region;
+    double mystart = CPU_TIME_th;                           // and the one on S, which takes place  
+#pragma omp for reduction(+:S)                              // in the for loop.                     
     for ( int ii = 0; ii < N; ii++ )
       S += array[ii];
 
-  double tend = CPU_TIME_W;
+    double mytime = CPU_TIME_th - mystart; 
+    th_avg_time += mytime;
+    th_min_time  = (mytime < th_min_time)? mytime : th_min_time;
+  }
+
+#endif
+  
+  double tend = CPU_TIME;
 
 
   /*  -----------------------------------------------------------------------------
@@ -130,12 +166,15 @@ int main( int argc, char **argv )
    *  -----------------------------------------------------------------------------
    */
 
-  printf("Sum is %g, process took %g of wall-clock time\n",
-	 S, tend - tstart );
+  printf("Sum is %g, process took %g of wall-clock time\n\n"
+	 "<%g> sec of avg thread-time\n"
+	 "<%g> sec of min thread-time\n",
+	 S, tend - tstart, th_avg_time/nthreads, th_min_time );
 
-  
-  free( array );
-  return 0;
+
+free( array );
+
+return 0;
 }
 
 
