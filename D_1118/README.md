@@ -12,5 +12,5 @@ Date: Monday 18/11/19
 
  - [hwloc](https://www.open-mpi.org/projects/hwloc/)
  - [likwid](https://github.com/RRZE-HPC/likwid/wiki)
- 
+
  

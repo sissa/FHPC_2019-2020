@@ -1,0 +1,5 @@
+&dimparam
+  gnx = 8702,
+  gny = 7501,
+  outfname = 'tutorial.nc',
+/
