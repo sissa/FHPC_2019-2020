@@ -126,7 +126,7 @@ int main( int argc, char **argv )
    */
 
 
-  double S       = 0;                                       // this will store the summation
+  double S           = 0;                                   // this will store the summation
   double th_avg_time = 0;                                   // this will be the average thread runtime
   double th_min_time = 1e11;                                // this will be the min thread runtime.
 							    // contrasting the average and the min
@@ -151,9 +151,8 @@ int main( int argc, char **argv )
     for ( int ii = 0; ii < N; ii++ )
       S += array[ii];
 
-    double mytime = CPU_TIME_th - mystart; 
-    th_avg_time += mytime;
-    th_min_time  = (mytime < th_min_time)? mytime : th_min_time;
+    th_avg_time  = CPU_TIME_th - mystart; 
+    th_min_time  = CPU_TIME_th - mystart; 
   }
 
 #endif
