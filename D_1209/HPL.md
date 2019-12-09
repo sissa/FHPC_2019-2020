@@ -8,9 +8,9 @@ Exercise could also be performed on personal laptop/desktop and/or any computati
 Get the package and unpack it in some location on your home directory 
 
 ```
- wget http://www.netlib.org/benchmark/hpl/hpl-2.2.tar.gz
- tar -xvzf hpl-2.2.tar.gz
- cd hpl-2.2
+ wget http://www.netlib.org/benchmark/hpl/hpl-2.3.tar.gz
+ tar -xvzf hpl-2.3.tar.gz
+ cd hpl-2.3
 ```
 
 Take a look at the INSTALL file in the top dir:
@@ -64,7 +64,7 @@ We now edit such file and change a few things:
 1. We define appropriately the TOPDIR variable: `TOPdir       = $(HOME)/hpl`
    We need to set it to the dir where we are, for instance in our case:
    
-   ```TOPdir       = $(HOME)/opt/hpl-2.2```
+   ```TOPdir       = $(HOME)/opt/hpl-2.3```
    
 2. We comment out the MPI variable becouse we will use the the mpi wrapper compiler (see later)
 
