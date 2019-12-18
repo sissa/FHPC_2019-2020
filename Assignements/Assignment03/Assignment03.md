@@ -142,22 +142,22 @@ Of course, *that is **not** a correct integration scheme* and if applied it woul
 
 Still for the sake of simplicity, you may consider to forget about real physical quantities. Use $G=10^{-6}$ (to avoid too large accelerations) and *natural units*: in practice, do not worry about the fact that positions, velocities and accelerations are expressed in physical units, just consider them as pure numbers.
 
-**This exercise is worth at most 36 points. At most 10 additional points will be given for the implementation of *both* MPI *and* OpenMP versions. At most additional 10 points will be given for the implementation of anhybrid MPI+OpenMP version.**
+**This exercise is worth at most 36 points. At most 10 additional points will be given for the implementation of *both* MPI *and* OpenMP versions. At most additional 10 points will be given for the implementation of an hybrid MPI+OpenMP version.**
 
 #### Requirements:
 
 1. You shall generate the *initial conditions* (i.c. since now on) , i.e. the initial distribution of the particles in your computational domain: let's consider it is a cubic box of side 1.
    Then, your particles will be confined initially in the volume $[0:1]\times[0:1]\times[0:1]\in\mathbb{R}^3$ and they will be uniformly distributed in that volume. The main parameter for that is $N_p$, which is the total number of particle in your system.
 The total mass in your system is, instead, fixed to the value $M_{tot} = 100$ ( then, your particle mass $m$ varies with the particles number $N_p$ ).
-   
+
 The particles must have (at least) the following properties: a 3D position, a 3D velocity and an Energy.
-   
+
    The particle positions can be randomly distributed in the volume in a uniform way and will have the same mass $m=1$ (so you can practically ignore the particles' mass).
    The single components of the 3D velocities (i.e. the values $\pmb{v}_i = [\, v_{x}, v_{y}, v_{z} \,]_{i=1,\dots,N_p}$ ) must be randomly distributed with a Gaussian pdf centered on $0$, having $\sigma = 0.01$.
 At this moment, particles' energy is set to the pure kinetic energy of the particle, $E_{i,kin} = 1/2 * m_i\cdot \|\pmb{v}_i\|^2$.
-   
+
 We require that your code must be able to perform a **domain decomposition among MPI tasks**, even if your N-body code is implemented in OpenMP. Then there are two cases:
-   
+
    - you implement the N-Body code in OpenMP
      In this case, we require a separate MPI code that generates the initial conditions. In that code, all the $N_T$ MPI tasks will generate a fraction $N_p/N_T$ (note: you have to handle the remainder $N_p \bmod N_T$) of the particles and then all the tasks will cooperate to distribute them .
      In fact, for this task you will consider your computational domain as subdivided in $N_T$ slices along one of the axis, so that the task $T_i$ is responsible for the particles that live in the $i-th$ slice (see Fig. 1 here below) and must receive all of them and only them.
@@ -171,9 +171,10 @@ We require that your code must be able to perform a **domain decomposition among
      To write this file, either you use the MPI I/O, so that all the MPI tasks write on the same files, or a different approach (for instance, each MPI task writes its own file or every evenly numbered MPI task $T_i$ writes a file with its data and the data of its neighbour task $T_{i+1}$). Whichever approach you choose, however, the reading of the file must be independent of the number of files in which the i.c. are splitted. In other words: if you choose to write a separate file for every MPI task, and you generate them with $N_{T_1}$ tasks, then you must be able to read and distribute the i.c. when running with a different number of tasks $N_{T_2}$.
      
    - you implement an MPI code
-  In this case, the previously described code can be simply part of your code, and the i.c. generation and the domain decomposition can be the first phase of your run.
-     
-   
+
+    In this case, the previously described code can be simply part of your code, and the i.c. generation and the domain decomposition can be the first phase of your run.
+
+
 2. Once the i.c. have been generated (or read in), your code must enter in a loop in which the resultant force for each of the particles is determined, their new positions are calculated, and the new time-step is obtained with the constraint $\Delta t \le \Delta t_{max}$  such that
    $$
    \left|\frac{\Delta\pmb{v}}{\pmb{v}}\right|_{max}\lt \epsilon .
@@ -198,26 +199,26 @@ We require that your code must be able to perform a **domain decomposition among
        if( iter % time_to_write_a_checkpoint )
         write_a_checkpoint_file()
    }
-```
-   
+   ```
+
 Let us comment on few points, to further simplify the problem:
-   
+
 - As for the design of the force estimation, you are allowed to assume that the total number of particle $N_p$ will always be small enough that the whole system can reside in each of the MPI process [^2] (or, obviously, on a single node as for what concerns the OpenMP implementation). In fact, by reason of the collisional scaling $\sim O(N_p^2)$, $N_p$ is typically at the scale of $N_p \lesssim 10^7$.
-   
+  
 - The time-step $\Delta t$ is the same for all the particles, i.e. it is a global time-step.
-   
+  
 - For the purpose of this assignment, `iter_max` can be as small as 2, since the focus is not on the correct evolution of the gravitational system.
-   
+  
 - As a consequence of the previous point. you can ignore the fact that while the system is evolving and the particles are moving, the domain decomposition should, in principle, be updated. Each MPI task, or OpenMP thread, will continue to update the particles it has been given after reading the i.c.
-   
+  
    - The loop example shown above is indeed only an example. For instance, in your design, you may choose to merge the estimate of forces and the update of the positions and the energy.
    
    - The energy of a particle $i$ is the sum of its kinetic energy and its potential energy:
    $$
      E_i = \frac{1}{2}m_i\|\pmb{v}_i\|^2 + G\sum_{j=0, j\ne i}^{N_p }\frac{m_j}{\|\pmb{r_i} -\pmb{r_j} \|}
-     $$
+   $$
      ($G, m_i$ and $m_j$ have been put in the formula for the sake of clarity)
-     
+   
      
 
 [^2]:That would be dreadfully wrong for a collisionless simulation, since the complexity of those problem scales as $\sim O(N_p log(N_p))$ and a considerable number of particles is routinely used for those simulations (as large as $\sim 10^{10}$)
