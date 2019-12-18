@@ -142,6 +142,8 @@ Of course, *that is **not** a correct integration scheme* and if applied it woul
 
 Still for the sake of simplicity, you may consider to forget about real physical quantities. Use $G=10^{-6}$ (to avoid too large accelerations) and *natural units*: in practice, do not worry about the fact that positions, velocities and accelerations are expressed in physical units, just consider them as pure numbers.
 
+**This exercise is worth at most 36 points. At most 10 additional points will be given for the implementation of *both* MPI *and* OpenMP versions. At most additional 10 points will be given for the implementation of anhybrid MPI+OpenMP version.**
+
 #### Requirements:
 
 1. You shall generate the *initial conditions* (i.c. since now on) , i.e. the initial distribution of the particles in your computational domain: let's consider it is a cubic box of side 1.
@@ -281,6 +283,6 @@ cc -o write_pgm_image write_pgm_image.c
 ./write_pgm_image [ max_val] [ width height]
 ```
 
-as output you will find the image `image.pgm` which should be easily rendered by any decent visualizer.
+as output you will find the image `image.pgm` which should be easily rendered by any decent visualizer .
 
 Once you have calculated the matrix `M`, to give it as an input to the function `write_pgm_image()` should definitely be straightforward.
