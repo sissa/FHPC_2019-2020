@@ -26,17 +26,17 @@ This optional part will be rewarded, if correctly - or in any case somehow brill
 
 #### The Mandelbrot set
 
-**In this exercise, you are required to implement a parallel code that check the condition** $[1]$ **for a given section of the complex plane (or, in other words, that computes the Mandelbrot set).**
+**In this exercise, you are required to implement a parallel code that iteratively calculates  Eq. $\eqref{eq:mandelbrot}$ for a given section of the complex plane (or, in other words, that computes the Mandelbrot set).**
 
 
 
 The Mandelbrot set is generated on the complex plane $\mathbb{C}$  by iterating the complex function $f_c(z)$ whose form is
 $$
-f_c(z) = z^2 + c
+f_c(z) = z^2 + c \label{eq:mandelbrot}
 $$
 for a complex point $c=x+iy$ and starting from the complex value $z=0$ so to obtain the series
 $$
-z_0 = 0,\, z_1 = f_c(0),\, z_2 = f_c(z_1),\, \dots,\, f_c^n(0)
+z_0 = 0,\, z_1 = f_c(0),\, z_2 = f_c(z_1),\, \dots,\, f_c^n(z_{n-1})
 $$
 
 The $Mandelbrot\, Set\, \mathcal{M}$ is defined as the set of complex points $c$ for which the above sequence is bounded. It may be proved that once an element $i$ of the series  is more distant than 2 from the origin, the series is then unbounded.
@@ -45,7 +45,7 @@ $$
 \left| z_n = f_c^n(0)\right| < 2\;\; \text{or}\;\; n > I_{max}
 \label{eq:condition}
 $$
-where $I_{max}$ is a parameter that sets the maximum number of iteration after which you consider the point $c$ to belong to $\mathcal{M}$.
+where $I_{max}$ is a parameter that sets the maximum number of iteration after which you consider the point $c$ to belong to $\mathcal{M}$ (the accuracy of your calculations increases with $I_{max}$, and so does the computational cost).
 
 Given a portion of the complex plane, included from the bottom left corner $c_L = x_L + iy_L$ and the top right one $c_R = x_R + iy_R$, an image of $\mathcal{M}$, made of $n_x \times n_y$ "pixels" can be obtained deriving, for each point $c_i$ in the plane, the sequence $z_n(c_i)$ to which apply the condition $\eqref{eq:condition}$, where
 $$
@@ -65,9 +65,10 @@ $$
 
 This problem is obviously embarrassingly parallel, for each point can be computed independently of each other and the most straightforward implementation would amount to evenly subdivide the plane among concurrent processes (or threads). However, in this way you will possibly find severe imbalance problems because the $\mathcal{M}$'s inner points are computationally more demanding than the outer points, the frontier being the most complex region to be resolved.
 
-A correct version, either in MPI or in OpenMP, of the straightforward implementation will still be considered a valid solution of this exercise, but worth a maximum of **27 points**.
+**A correct version, either in MPI or in OpenMP, of the straightforward implementation will still be considered a valid solution of this exercise, but worth a maximum of most 24 points. Taking into account its simplicity, no additional points will be accounted for implementing more than one version. 3 points will be added for an hybrid version.**
+**More sophisticated implementation, with a balanced work distribution, that you have to conceive and implement, will be worth the full mark of at most 30 points. At most 10 additional points will be recognised for implementing *both* MPI *and* OpenMP versions. At most 10 additional points will be recognized for implementing an hybrid MPI+OpenMP version**.
 
-More sophisticated implementation, with a more balanced work distribution, that you have to conceive and implement, will be worth the full mark of **30 points**.
+
 
 #### Requirements:
 
@@ -92,6 +93,8 @@ More sophisticated implementation, with a more balanced work distribution, that 
 > **Note 1:** Mandelbrot set lives roughly in the circular region centered on $(-0.75, 0)$ with a radius of $\sim 2$.
 
 > **Note 2:** the multiplication of 2 complex numbers is defined as $(x_1 + iy_1)\,\times\,(x_2+iy_2) = (x_1x_2 - y_1y_2) + i(x_1y_2+x_2y_1) $
+
+
 
 
 
@@ -142,7 +145,7 @@ Of course, *that is **not** a correct integration scheme* and if applied it woul
 
 Still for the sake of simplicity, you may consider to forget about real physical quantities. Use $G=10^{-6}$ (to avoid too large accelerations) and *natural units*: in practice, do not worry about the fact that positions, velocities and accelerations are expressed in physical units, just consider them as pure numbers.
 
-**This exercise is worth at most 36 points. At most 10 additional points will be given for the implementation of *both* MPI *and* OpenMP versions. At most additional 10 points will be given for the implementation of an hybrid MPI+OpenMP version.**
+**This exercise is worth at most 40 points. At most 10 additional points will be given for the implementation of *both* MPI *and* OpenMP versions. At most additional 10 points will be given for the implementation of an hybrid MPI+OpenMP version.**
 
 #### Requirements:
 
@@ -211,14 +214,12 @@ Let us comment on few points, to further simplify the problem:
   
 - As a consequence of the previous point. you can ignore the fact that while the system is evolving and the particles are moving, the domain decomposition should, in principle, be updated. Each MPI task, or OpenMP thread, will continue to update the particles it has been given after reading the i.c.
   
-   - The loop example shown above is indeed only an example. For instance, in your design, you may choose to merge the estimate of forces and the update of the positions and the energy.
-   
-   - The energy of a particle $i$ is the sum of its kinetic energy and its potential energy:
+- The loop example shown above is indeed only an example. For instance, in your design, you may choose to merge the estimate of forces and the update of the positions and the energy.
+
+- The energy of a particle $i$ is the sum of its kinetic energy and its potential energy:
    $$
-     E_i = \frac{1}{2}m_i\|\pmb{v}_i\|^2 + G\sum_{j=0, j\ne i}^{N_p }\frac{m_j}{\|\pmb{r_i} -\pmb{r_j} \|}
+   E_i = \frac{1}{2}m_i\|\pmb{v}_i\|^2 + G\sum_{j=0, j\ne i}^{N_p }\frac{m_j}{\|\pmb{r_i} -\pmb{r_j} \|}\,.
    $$
-     ($G, m_i$ and $m_j$ have been put in the formula for the sake of clarity)
-   
      
 
 [^2]:That would be dreadfully wrong for a collisionless simulation, since the complexity of those problem scales as $\sim O(N_p log(N_p))$ and a considerable number of particles is routinely used for those simulations (as large as $\sim 10^{10}$)
@@ -251,6 +252,25 @@ Let us comment on few points, to further simplify the problem:
 > - all the particles in sequence: 7 floating points for each of them (3 for the position, 3 for the velocity and 1 for the energy). No particular order among the particles is required.
 
 
+
+
+
+### Summary of the points
+
+|                                             | MPI or OpenMP | *both* MPI *and* OpenMP | hybrid MPI+OpenMP |
+| ------------------------------------------- | ------------- | ----------------------- | ----------------- |
+| **Exercise 1**<br />straightforward version | 24            | -                       | +3                |
+| **Exercise 1**<br />work-balance version    | 30            | +10                     | +10               |
+| **Exercise 2**                              | 40            | +10                     | +10               |
+
+Examples:
+
+- you choose Ex.1, the simple version. If everything is correct, you get up to 24 points (i.e. up to 8 points of your final mark)
+- you choose Ex.1, the w-balance version, and you implement both an MPI and an OpenMP versions: you get at most 40 points (i.e. 12 points of your final mark). If you also add the hybrid version, you get at most 50 points (i.e. 15 points of your final mark)
+- you choose Ex. 2 and you develop 3 versions: MPI, OpenMP and hybrid. You get at most 60 points (i.e. 20 points of your final mark)
+- you choose both Ex.1, the w-balance flavour, and Ex. 2, and you develop 6 codes: 2 MPI, 2 OpenMP and 2 hybrid. You get at most 110 points (and you get your final degree.. ops not, you get 33 points of your final mark).
+
+Your final mark will still be expressed in units of 30 points, as you know, plus a possible laude. The rationale of accumulating more points is to secure a very high mark and the laude.
 
 
 
@@ -287,3 +307,32 @@ cc -o write_pgm_image write_pgm_image.c
 as output you will find the image `image.pgm` which should be easily rendered by any decent visualizer .
 
 Once you have calculated the matrix `M`, to give it as an input to the function `write_pgm_image()` should definitely be straightforward.
+
+
+
+### Appendix II
+
+#### A note about hybrid MPI+OpenMP
+
+Although we did not yet discuss this topic in the class, at the level you may use it here that is quite straightforward. As you have seen, it is obviously not a requirement but just an opportunity for those among you that like to be challenged.
+
+As long as you use OpenMP regions in a MPI process for computation *only* and *not* to execute MPI calls, everything is basically safe and you can proceed as usual with both MPI and OpenMP calls and constructs.
+
+It may be safer, however, to initialize the MPI library with a call slightly different than `MPI_Init()`:
+
+```C
+
+int mpi_provided_threaD_level;
+MPI_Init_threads( &argc, &argv, MPI_THREAD_FUNNELED, &mpi_provided_thread_level);
+if ( mpi_provided_thread_level < MPI_THREAD_FUNNELED ) {
+ 	printf("a problem arise when asking for MPI_THREAD_FUNNELED level\n");
+    MPI_Finalize();
+    exit( 1 );
+}
+
+...;   // here you go on with BaU
+
+MPI_Finalize();
+return 0;
+```
+
