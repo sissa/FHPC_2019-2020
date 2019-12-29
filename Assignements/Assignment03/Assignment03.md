@@ -183,10 +183,10 @@ The total mass in your system is, instead, fixed to the value $M_{tot} = 100$ ( 
 
 2. Once the i.c. have been generated (or read in), your code must enter in a loop in which the resultant force for each of the particles is determined, their new positions are calculated, and the new time-step is obtained with the constraint $\Delta t \le \Delta t_{max}$  such that
    $$
-   \left|\frac{\Delta\pmb{v}}{\pmb{v}}\right|_{max}\lt \epsilon .
+   \left|\frac{\Delta\pmb{v}}{\pmb{v}}\right|_{max}\le \epsilon .
    $$
 
-   where $\epsilon$ is a parameter of your code (let's say of the order of $\sim 0.05$) and the maximum is intended to be over all the $N_p$ particles (note that $\Delta t_{max}$ is obtained from the constraint on the velocity).
+   where $\epsilon$ is a parameter of your code (let's say of the order of $\sim 0.05$) and the maximum is intended to be over all the $N_p$ particles (note that $\Delta t_{max}$ is obtained from the constraint on the velocity). This last condition poses a global constraint that requires a reduction on all your particles: the $\Delta t$ that you choose can be set either equal to $\Delta t_{max}$ or to a fraction of this, or you can calculate it with some other algorithm that you deem as adequate but with a maximum value of $\Delta t_{max}$.
    Such a loop may have a form similar to
 
    ```C
@@ -198,8 +198,7 @@ The total mass in your system is, instead, fixed to the value $M_{tot} = 100$ ( 
        calculate_new_positions_and_energies(delta_t);
        
        update_total_system_energy()
-           
-       time   += delta_t;
+       
        delta_t = obtain_new_delta_t();
        
        if( iter % time_to_write_a_checkpoint )
