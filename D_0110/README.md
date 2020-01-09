@@ -1,0 +1,17 @@
+## Day 18: Introduction to accelerator and GPU programming   
+
+Date:  Firday 10/01/20
+
+### lectures:
+
+  -  Stefano Cozzini: [Introduction_to_GPU_programming.pdf](HighPerformanceLibraries.pdf)
+
+### references: 
+  
+  -  to be added
+
+### Practical session
+
+In this practical session you are asked to play with the following exercise:
+
+  - [GPU_exercise](GPU.md)
