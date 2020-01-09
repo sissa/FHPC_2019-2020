@@ -1,6 +1,6 @@
 ## Day 18: Introduction to accelerator and GPU programming   
 
-Date:  Firday 10/01/20
+Date:  Friday 10/01/20
 
 ### lectures:
 
