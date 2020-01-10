@@ -1,4 +1,4 @@
-###Using CUBLAS in place of BLAS: benefits and drawbacks
+### Using CUBLAS in place of BLAS: benefits and drawbacks
 
 The goal of this tutorial is to show how to migrate from standard BLAS functions to CUBLAS, 
 analysing benefits and limitations of the procedure. 
@@ -206,11 +206,11 @@ You could also test the performance of double precision calculation. To this end
 
 Then issue
 
-::
+```
 
   make clean
   make gpu
-
+```
 
 With double precision, you cannot fit matrices larger that 14000x14000 on the GPU memory on K20x (C3HPC and old Uliysses partition)
 
@@ -218,7 +218,7 @@ The performance in double precision should be roughly half of the performance in
 (This is NOT in general true for consumer-level GPUs (NVidia GTX e.g.) . This is due to the fact that such GPUs have a much lower count of double precision registers. 
 The Tesla series instead have typically twice as much single precision register compared to double precision.) 
 
-### Proposed Exercise
+#### Proposed Exercise
 
 - Increasing the matrices size up to 20000x20000 (single precision) or 14000x14000 (double precision) analyse the scaling of the GEMM calculation, for both CPU 
   and GPU and find the size for which the GPU is beneficial. Plot your results.
@@ -229,7 +229,7 @@ The Tesla series instead have typically twice as much single precision register 
     export OMP_NUM_THREADS=4
 ```
 
-### More resources
+#### More resources
 
 
 For further information please visit the official cuBLAS page:
