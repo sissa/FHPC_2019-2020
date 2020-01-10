@@ -89,6 +89,7 @@ The present BLAS code is based on the OpenBLAS implementation, which is multithr
 ```
 
   export OMP_NUM_THREADS=4
+```
 
 By default this variable has been set by the queue system to the number of cores requested at submission time (``ppn=24`` means ``OMP_NUM_THREADS=24``), but can be changed at runtime.
 
