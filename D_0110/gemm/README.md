@@ -34,7 +34,7 @@ uses such data layout. ``TransA`` and ``TransB`` tell that the matrices should b
   C(M,N) = alpha*A(M,K)*B(K,N) + beta*C(K,N)
 ```
 
-The paramters ``lda``, ``lbd`` and ``ldc`` are the leading dimensions of the matrices, which, since we are using colmajor order, should be the number of rows (lda=M, ldb=K, ldc=M)
+The parameters ``lda``, ``lbd`` and ``ldc`` are the leading dimensions of the matrices, which, since we are using colmajor order, should be the number of rows (lda=M, ldb=K, ldc=M)
 
 To compile and run the code, first submit an interactive job to the queue system
 
@@ -45,6 +45,7 @@ On C3HPC:
 
 ```
 On Ulysses new partition:
+
 ```
 srun -N 1 -p gpu2 --pty bash
 ```
@@ -60,7 +61,6 @@ Load the needed module
 And type 
 
 ```
-
   make cpu
 ```
 
@@ -220,8 +220,7 @@ The Tesla series instead have typically twice as much single precision register 
 
 #### Proposed Exercise
 
-- Increasing the matrices size up to 20000x20000 (single precision) or 14000x14000 (double precision) analyse the scaling of the GEMM calculation, for both CPU 
-  and GPU and find the size for which the GPU is beneficial. Plot your results.
+- Increasing the matrices size up to 20000x20000 (single precision) or 14000x14000 (double precision) analyse the scaling of the GEMM calculation, for both CPU  and GPU and find the size for which the GPU is beneficial. Plot your results.
 
 - Repeat the analysis for different values of OMP_NUM_THREADS. (Remember, this effect only the CPU BLAS, not the cuBLAS)
  
