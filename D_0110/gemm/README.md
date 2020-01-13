@@ -54,7 +54,7 @@ Load the needed module
 
 ```
 
-  module load openblas/0.3.6/gcc/8.2.0-3hba37z
+  module load intel
 
 ```  
 
@@ -84,7 +84,7 @@ You can use positional argument to specify the size
 
 will use M=2000 K=1000 and N=3000, so we will get C(2000,3000) = A(2000,1000)\*B(1000,3000)
 
-The present BLAS code is based on the OpenBLAS implementation, which is multithreaded. To control the number of threads you could use the environment variable ``OMP_NUM_THREADS``
+The present BLAS code is based on Intel MKL implementation, which is multithreaded. To control the number of threads you could use the environment variable ``OMP_NUM_THREADS``
 
 ```
 
@@ -157,13 +157,12 @@ This data movement costs quite some time, such that using cuBLAS becomes benefic
 To compile code load the CUDA environment
 
 ```
- module load cuda/
+ module load cuda
 ```
 
 and then issues:
 
 ```
-
   make gpu
 ```
 
@@ -229,9 +228,15 @@ The Tesla series instead have typically twice as much single precision register 
     export OMP_NUM_THREADS=4
 ```
 
+#### Fortran Interface to cublas
+
+see here:
+
+ - https://docs.nvidia.com/cuda/cublas/index.html#appendix-b-cublas-fortran-bindings
+
 #### More resources
 
 
 For further information please visit the official cuBLAS page:
 
-    [https://docs.nvidia.com/cuda/cublas/index.html]
+  - https://docs.nvidia.com/cuda/cublas/index.html
