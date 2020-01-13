@@ -62,26 +62,35 @@ After the Christmas break the lectures will re-start on Friday, 10th Jan and wil
 
 ### Exam
 
-The final mark will be made up by the weighted sum of the marks obtained in home assignments that will be given along the course, and of the mark obtained in a final written test.
 The marks range from 0 to 30, 18 being the minimum to pass (all the marks must be at minimum 18).
+
+#### For people able to send the assigmements:
+ - The final proposed mark will be made up by the weighted sum of the marks obtained in 3 home assignments that will be given along the course.
+  - in case you wanted to improve your final mark, you could ask for an oral examination (maximum improvement is 5 point out of 30). That is at your own risk. Normally, if your oral examination goes through smoothly, you will only improve your result and you won't achieve a mark lower than what you already had. However, should you perform terribly, convincing us that your previous marks were not really related to your personal work, your mark could be put at risk.
+ 
+#### For all the other (including previous' years student) 
+
+ - There will be a written exam consisting in about 15 questions covering all the topics mentioned during the lectures. 
+ - Students who pass the written exam will be asked to prepare some exercises (assigned by us) than must be submitted **within 15 days** from the date of the written exam. 
+ - Once the exercise has been submitted an oral exam must be sustained, still  **within 15 days** from the date of the written exam.
+ - If exercises are not submitted and/or oral exam failed the all exam should be repeated ( written/exercise/oral).
+  
 
 
 #### ASSIGNEMENTS:
 3 written exercises will be assigned, with a strict due date. Failing to submit the solutions, unless for serious reasons of non-academic nature, will deny the access to the final exam.
 
-70% if the final mark will be calculated from the exercises' marks, as detailed here after.
 The assignments's schedule will be the following:
 
-- Oct, 28th --> due date: Nov, 4th     [ 20% of the final mark ]
+- Oct, 28th --> due date: Nov, 4th     [ 30% of the final mark ]
 - Nov, 29th --> due date: Dec, 16th    [ 30% of the final mark ]
-- Dec, 16th --> due date: Jan, 10th    [ 20% of the final mark ]
+- Dec, 16th --> due date: Jan, 10th    [ 40% of the final mark ]
 
 
 #### FINAL TEST:
-The final written test will consist in about 15 questions covering all the topics mentioned during the lectures. The corresponding mark will weight 30% of the final mark.
+The final written test will 
 
-In case you wanted to improve your final mark, you could ask for an oral examination. That is at your own risk. Normally, if your oral examination goes through smoothly, you will only improve your result and you won't achieve a mark lower than what you already had.
-However, should you perform terribly, convincing us that your previous marks were not really related to your personal work, your mark could be put at risk.
+I
 
 
 ### References&Books
