@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "cblas.h"
+#include "mkl_cblas.h"
 #include <time.h>
 
 #ifdef USE_FLOAT
