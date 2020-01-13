@@ -1,4 +1,4 @@
-###Using CUBLAS in place of BLAS: benefits and drawbacks
+### Using CUBLAS in place of BLAS: benefits and drawbacks
 
 The goal of this tutorial is to show how to migrate from standard BLAS functions to CUBLAS, 
 analysing benefits and limitations of the procedure. 
@@ -34,7 +34,7 @@ uses such data layout. ``TransA`` and ``TransB`` tell that the matrices should b
   C(M,N) = alpha*A(M,K)*B(K,N) + beta*C(K,N)
 ```
 
-The paramters ``lda``, ``lbd`` and ``ldc`` are the leading dimensions of the matrices, which, since we are using colmajor order, should be the number of rows (lda=M, ldb=K, ldc=M)
+The parameters ``lda``, ``lbd`` and ``ldc`` are the leading dimensions of the matrices, which, since we are using colmajor order, should be the number of rows (lda=M, ldb=K, ldc=M)
 
 To compile and run the code, first submit an interactive job to the queue system
 
@@ -45,6 +45,7 @@ On C3HPC:
 
 ```
 On Ulysses new partition:
+
 ```
 srun -N 1 -p gpu2 --pty bash
 ```
@@ -60,7 +61,6 @@ Load the needed module
 And type 
 
 ```
-
   make cpu
 ```
 
@@ -89,6 +89,7 @@ The present BLAS code is based on Intel MKL implementation, which is multithread
 ```
 
   export OMP_NUM_THREADS=4
+```
 
 By default this variable has been set by the queue system to the number of cores requested at submission time (``ppn=24`` means ``OMP_NUM_THREADS=24``), but can be changed at runtime.
 
@@ -156,13 +157,12 @@ This data movement costs quite some time, such that using cuBLAS becomes benefic
 To compile code load the CUDA environment
 
 ```
- module load cuda/
+ module load cuda
 ```
 
 and then issues:
 
 ```
-
   make gpu
 ```
 
@@ -206,11 +206,11 @@ You could also test the performance of double precision calculation. To this end
 
 Then issue
 
-::
+```
 
   make clean
   make gpu
-
+```
 
 With double precision, you cannot fit matrices larger that 14000x14000 on the GPU memory on K20x (C3HPC and old Uliysses partition)
 
@@ -218,10 +218,9 @@ The performance in double precision should be roughly half of the performance in
 (This is NOT in general true for consumer-level GPUs (NVidia GTX e.g.) . This is due to the fact that such GPUs have a much lower count of double precision registers. 
 The Tesla series instead have typically twice as much single precision register compared to double precision.) 
 
-### Proposed Exercise
+#### Proposed Exercise
 
-- Increasing the matrices size up to 20000x20000 (single precision) or 14000x14000 (double precision) analyse the scaling of the GEMM calculation, for both CPU 
-  and GPU and find the size for which the GPU is beneficial. Plot your results.
+- Increasing the matrices size up to 20000x20000 (single precision) or 14000x14000 (double precision) analyse the scaling of the GEMM calculation, for both CPU  and GPU and find the size for which the GPU is beneficial. Plot your results.
 
 - Repeat the analysis for different values of OMP_NUM_THREADS. (Remember, this effect only the CPU BLAS, not the cuBLAS)
  
@@ -229,13 +228,13 @@ The Tesla series instead have typically twice as much single precision register 
     export OMP_NUM_THREADS=4
 ```
 
-### Fortran Interface to cublas
+#### Fortran Interface to cublas
 
 see here:
 
  - https://docs.nvidia.com/cuda/cublas/index.html#appendix-b-cublas-fortran-bindings
 
-### More resources
+#### More resources
 
 
 For further information please visit the official cuBLAS page:
