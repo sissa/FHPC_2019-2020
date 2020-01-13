@@ -33,11 +33,11 @@ The scope of the course is to give you:
  - Friday 29/11 : Room D Miramare campus [lecture materials](D_1129/README.md)
  - Monday 02/12 : Room D Miramare campus [lecture materials](D_1202/README.md)
  - Friday 06/12 : Room D Miramare campus [lecture materials](D_1206/README.md)
- - Monday 09/12 : Room D Miramare campus(D16/README.md)
- - Friday 13/12 : Room D Miramare campus (all day)(D17/README.md)
- - Monday 16/12 : Room D Miramare campus(D18/README.md)
- - Friday 10/01 : Room D Miramare campus (all day)(D19/README.md)
- - Monday 13/01 : Room D Miramare campus(all day)(D20/README.md)
+ - Monday 09/12 : Room D Miramare campus([lecture materials](D_1209/README.md)
+ - Friday 13/12 : Room D Miramare campus [lecture materials](D_1213/README.md)
+ - Monday 16/12 : Room D Miramare campus [lecture materials](D_1216/README.md)
+ - Friday 10/01 : Room D Miramare campus [lecture materials](D_0110/README.md)
+ - Monday 13/01 : Room D Miramare campus [lecture materials](D_0110/README.md)
  - Friday 17/01 : Room D Miramare campus (all day)(D21/README.md)
 
 
