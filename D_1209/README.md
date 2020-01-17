@@ -5,7 +5,7 @@ Date:  Monday 09/12/19
 ### lectures:
 
   -  Stefano Cozzini: [High Performance Libraries](HighPerformanceLibraries.pdf)
-  -  Luca Tornatore : 
+
 
 ### references: 
   
