@@ -1,3 +1,20 @@
+# <div class="text-red">  NEWS ABOUT EXAMS and person-to-person meeting 
+
+Due to the current situation, it is still unclear when it will be possible to have a "normal" exam session.
+Such a session will be set as soon as possible. **Meanwhile, we keep the open one, scheduled on February 13th, only to register the accepted final marks**, since in principle we could hold the examinations via skype.
+
+We would strongly prefer **not** to have oral exams via skype: then, we will iteratively try new dates for the exams so that to have a proper exam session in March at latest.
+Shall that not be possible, we will open a session and schedule you for an exam in person by appointment (with all due precautions as advised by the University, of course).
+
+So:
+1. if you accept the final mark that we have proposed, **enroll for the current session** and your vote will be registered
+2. if you want to have an oral exam, pls be patient
+3. if you want to have an oral exam *and* you can not wait any longer because of some deadline, write us and we will arrange that.
+
+
+</div>
+
+
 # Foundations of HPC, 2019/2020
 
 ## -- DSSC -- Data Science and Scientific Computing --
