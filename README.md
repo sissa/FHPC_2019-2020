@@ -6,6 +6,8 @@ Such a session will be set as soon as possible. **Meanwhile, we keep the open on
 We would strongly prefer **not** to have oral exams via skype: then, we will iteratively try new dates for the exams so that to have a proper exam session in March at latest.
 Shall that not be possible, we will open a session and schedule you for an exam in person by appointment (with all due precautions as advised by the University, of course).
 
+**SIDE NOTE** detailed notes about your 3rd assignments will be sent individually upon request
+
 So:
 1. if you accept the final mark that we have proposed, **enroll for the current session** and your vote will be registered
 2. if you want to have an oral exam, pls be patient
